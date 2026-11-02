@@ -1,0 +1,15 @@
+evidence_id,category,claim,source_id,source_type,verification_status,confidence,limitations,disposition
+E01,Context,"IAB access listings commonly advertise RDP, VPN, RDWeb",R1,Published third-party research,Supported,High for source-report content,Context only; no incident attribution,KEEP
+E02,Context,Advertised access is not independently confirmed by sales listing,R1,Analytic caveat applied to market reporting,Analytical judgment,Moderate,Do not present seller language as technical verification,KEEP WITH QUALIFIER
+E03,Hypothetical,Seller posted an authentic specific listing,SYNTHETIC,Invented scenario,Not verified,Not applicable,No original forum artifact,DO NOT ASSERT
+E04,Hypothetical,Seller has functioning privileged access,SYNTHETIC,Invented scenario,Not verified,Not applicable,No authorized owner telemetry,DO NOT ASSERT
+E05,Hypothetical,Victim is a particular organization,SYNTHETIC,Invented scenario,Not verified,Not applicable,No corporate or infrastructure provenance; no victim attribution,DO NOT ASSERT
+E06,Hypothetical,RDP was actually used,SYNTHETIC,Invented scenario,Not observed,Not applicable,Requires session and host evidence,ATTACK HYPOTHESIS ONLY
+E07,Technique definition,T1021.001 maps to RDP remote service,R2,MITRE ATT&CK official technique,Verified definition,High,Do not equate with remote support software,KEEP DEFINITION ONLY
+E08,Technique definition,T1136.001 maps to creation of local accounts,R3,MITRE ATT&CK official technique,Verified definition,High,Advertised privilege does not imply account creation,KEEP DEFINITION ONLY
+E09,Technique definition,T1219.002 maps to legitimate remote desktop software misuse,R4,MITRE ATT&CK official technique,Verified definition,High,Distinct from RDP protocol technique,KEEP DEFINITION ONLY
+E10,Hypothetical,A local persistence account was created,SYNTHETIC,Invented scenario,Not observed,Not applicable,Requires validated account-change logs,ATTACK HYPOTHESIS ONLY
+E11,Hypothetical,Remote desktop support software was installed or abused,SYNTHETIC,Invented scenario,Not observed,Not applicable,Requires endpoint and software inventory evidence,ATTACK HYPOTHESIS ONLY
+E12,Publication,Original employer recruitment materials may be publicly reused,PRIVATE_UNREVIEWED,Rights not verified,Not cleared,Not applicable,Keep original prompts exhibits and identifiers excluded,EXCLUDE
+E13,IOC,Active malicious infrastructure or credentials were independently confirmed,NONE,No case evidence,None found in this exercise,Not applicable,No technical IOC included; do not fabricate,DO NOT ASSERT
+E14,Disposition,Insufficient case evidence to name a victim or allege compromise,SYNTHETIC,Evidence-gap assessment,Supported as exercise decision,High for absence within supplied synthetic case,Not a verdict about any real system,KEEP WITH BOUNDARY
