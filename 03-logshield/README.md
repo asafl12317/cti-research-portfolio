@@ -1,25 +1,17 @@
 # LogShield — Synthetic SOC Detection Dashboard
 
-**Type:** React + TypeScript detection-engineering demonstration using synthetic security events. **Not a production SIEM, real-time external log collection system, or evidence of a real incident.**
+**Stack:** React, TypeScript, Vite, Vitest. **Data:** locally generated synthetic security events. **Purpose:** demonstrate detection engineering, alert triage, and an analyst-oriented interface; not a production SIEM or real incident response system.
 
-## Purpose
-Demonstrates practical event triage, rule-based detection, alert correlation and a readable analyst interface. Detection is illustrative and must be corroborated before operational deployment.
+## Capabilities demonstrated
 
-## Detectors
-- **Brute force:** default trigger is more than five failed authentication events (`4625` or `4771`) from the same source IP within a rolling 10-minute threshold window. The local revised implementation correlates additional nearby failures into one alert; the correlated sequence can extend beyond 10 minutes. This is a demo heuristic, not a validated production rule.
-- **Location-change heuristic:** flags successful logins for the same user at different location labels within 30 minutes. It does not calculate travel speed or geodesic distance, so the label **Impossible Travel** is indicative, not proof of impossibility.
+- **Brute-force heuristic:** correlates more than five failed-authentication events from the same source IP over a 10-minute trigger window; a triggered cluster can include nearby subsequent events. This is illustrative rule logic, not a tuned production detector.
+- **Location-change heuristic:** highlights successful logins for the same account from differing location labels in a short period. The UI may refer to *Impossible Travel*, but the underlying rule does **not** calculate geographical distance, speed, or impossible travel.
+- **Investigation UI:** dashboards, alert listings, log browsing, filters and pagination using fixture data.
 
-## Locally reported verification (2026-11-02)
-- Vitest: 14/14 passed
-- ESLint: passed
-- Production build: passed
-- UI smoke test: passed (user-reported)
-- `npm audit --omit=dev`: 0 reported vulnerabilities
-- Full dependency audit: 18 reported development dependency findings, including two critical classifications, to be evaluated before exposing any development server.
+## Run locally
 
-**Source note:** The actual validated local application source is intentionally not contained in this staging ZIP. Import it using `release-checks/import-local-logshield.sh`, then inspect the resulting staged files. These claims reflect the owner's terminal output, not an independent rerun of the final local code.
+Requires Node.js and npm. From the `03-logshield` directory:
 
-## Running after source import
 ```bash
 npm ci
 npm test -- --run
@@ -28,4 +20,10 @@ npm run build
 npm run dev
 ```
 
-Only run on a trusted local development environment. Do not expose the development/test UI to public networks.
+Use the localhost URL printed by Vite. Do not expose the development server to the public internet.
+
+## Verification and limits
+
+The project owner previously reported **14/14 Vitest tests passing**, ESLint passing, build passing, and successful manual UI smoke testing on a locally edited version on November 2, 2026. These results should be reproduced on the checked-out revision before using them as current evidence. A production-only npm advisory check previously reported zero findings, while the full audit reported 18 development-dependency findings; neither is a guarantee of security.
+
+No live log ingestion, SIEM backend, enterprise deployment, or incident validation is claimed. Location labels are synthetic; alerts are rule demonstrations rather than independently confirmed attacks.
