@@ -92,7 +92,7 @@ function buildBruteForceCluster(baseTime: number, sourceIp: string, targetIp: st
   return entries;
 }
 
-// ─── Impossible travel clusters ───────────────────────────────────────────────
+// ─── Location-change heuristic examples ───────────────────────────────────────────────
 // 2 scenarios: same userId from 2 cities within 30 minutes
 function buildImpossibleTravel(
   baseTime: number,
@@ -110,8 +110,8 @@ function buildImpossibleTravel(
       sourceIp: ip1,
       targetIp,
       eventId: '4624',
-      severity: 'Critical',
-      description: '[CRITICAL] Successful Logon — suspicious geo-location',
+      severity: 'Medium',
+      description: 'Successful Logon — differing synthetic location labels',
       location: city1,
       userId,
     },
@@ -121,8 +121,8 @@ function buildImpossibleTravel(
       sourceIp: ip2,
       targetIp,
       eventId: '4624',
-      severity: 'Critical',
-      description: '[CRITICAL] Successful Logon — suspicious geo-location',
+      severity: 'Medium',
+      description: 'Successful Logon — differing synthetic location labels',
       location: city2,
       userId,
     },
@@ -164,7 +164,7 @@ export function generateMockData(): LogEntry[] {
   entries.push(...buildBruteForceCluster(now - 3 * 60 * 60 * 1000, randomIp('185.220.101.'), randomIp('192.168.1.'), 'user-502'));
   entries.push(...buildBruteForceCluster(now - 11 * 60 * 60 * 1000, randomIp('45.33.32.'), randomIp('10.0.1.'), 'user-677'));
 
-  // 2 impossible travel scenarios
+  // 2 location-change examples
   entries.push(...buildImpossibleTravel(
     now - 2 * 60 * 60 * 1000,
     'user-201',

@@ -8,7 +8,7 @@ interface AlertsPanelProps {
 
 const TYPE_META: Record<Alert['type'], { label: string; icon: React.ComponentType<{ size?: number; className?: string }>; color: string }> = {
   BruteForce: { label: 'Brute Force', icon: Zap, color: 'text-high bg-high/10 border-high/30' },
-  ImpossibleTravel: { label: 'Impossible Travel', icon: Globe, color: 'text-critical bg-critical/10 border-critical/30' },
+  ImpossibleTravel: { label: 'Suspicious Location Change', icon: Globe, color: 'text-medium bg-medium/10 border-medium/30' },
   AnomalyDetected: { label: 'Anomaly', icon: AlertTriangle, color: 'text-medium bg-medium/10 border-medium/30' },
 };
 

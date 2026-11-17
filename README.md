@@ -2,7 +2,17 @@
 
 This portfolio demonstrates public-source threat intelligence research, source validation, analytic judgment, MITRE ATT&CK interpretation, and hands-on detection engineering. It contains two research exercises and one locally runnable software demonstration.
 
-> **Access:** Private repository. Materials are shared only with approved reviewers. The research reports describe their evidence limits; software demonstrations use synthetic data.
+> **Access:** Public, evidence-based portfolio. Research limitations are explicit and software demonstrations use synthetic data.
+
+## Portfolio at a glance
+
+| Project | Problem | My contribution | Result and verification |
+|---|---|---|---|
+| CL0P threat intelligence | Distinguish campaign evidence from attribution assumptions | Researched primary sources, built a scoped timeline, reviewed ATT&CK techniques and recorded evidence confidence | Source-linked report with documented limits and indicators to validate, not a live victim investigation |
+| Synthetic access-listing OSINT | Determine whether an access-sale claim justifies victim attribution | Built a simulated claims-versus-evidence assessment and tested alternative explanations | Explicitly hypothetical case; conclusion: no corroborated victim identification |
+| LogShield detection dashboard | Reduce analyst effort in reviewing synthetic authentication events | Implemented rule-based alert correlation, log views and regression tests | Run `npm test -- --run` and `npm run build` inside `03-logshield`; see example triage flow below |
+
+**Review order:** Start with a report's executive assessment, check its linked evidence register, then inspect LogShield tests or run the demo. This is independent portfolio work, not employer incident response experience.
 
 ## Featured projects
 
@@ -11,6 +21,8 @@ This portfolio demonstrates public-source threat intelligence research, source v
 A scoped historical analysis of MOVEit Transfer exploitation in 2023 and Oracle E-Business Suite extortion activity in 2025. Skills demonstrated: campaign timeline construction, primary-source evaluation, actor-vs-brand attribution, campaign-specific ATT&CK mapping, historical IOC qualification, and confidence assessment. Coverage through November 1, 2026 is selective, not exhaustive.
 
 [Threat intelligence report](01-cl0p-intelligence/01_Cl0p_Threat_Intelligence_Verified_2026-11-01.md) · [Claim-level evidence log](01-cl0p-intelligence/01_Cl0p_Evidence_Log_Verified_2026-11-01.csv)
+
+[Hunting exercise](01-cl0p-intelligence/hunting-exercise/README.md) — simulated intelligence-to-detection exercise with SPL, a reproducible CSV fixture, expected output and false-positive analysis.
 
 ### 2. Synthetic Initial-Access Listing — OSINT Validation and Non-Attribution
 

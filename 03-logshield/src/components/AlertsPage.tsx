@@ -19,7 +19,7 @@ export function AlertsPage({ alerts }: AlertsPageProps) {
           Brute Force: <span className="text-high">{bf}</span>
         </div>
         <div className="text-xs font-mono text-text-muted">
-          Impossible Travel: <span className="text-critical">{it}</span>
+          Suspicious Location Change: <span className="text-critical">{it}</span>
         </div>
       </div>
       <AlertsPanel alerts={alerts} />

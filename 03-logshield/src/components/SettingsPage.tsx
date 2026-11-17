@@ -42,7 +42,7 @@ export function SettingsPage({ config, onConfigChange }: SettingsPageProps) {
               onChange={(v) => onConfigChange({ bruteForceWindowMinutes: v })}
             />
             <SliderRow
-              label="Impossible Travel Window"
+              label="Suspicious Location Change Window"
               description="Maximum time between two logins from different locations"
               value={config.impossibleTravelWindowMinutes}
               min={10}

@@ -104,70 +104,59 @@ export function detectBruteForce(
   return alerts;
 }
 
-// ─── Impossible Travel ────────────────────────────────────────────────────────
-// Same userId logged in from 2 geographically distinct locations within the
-// travel window.  "Distinct" here means different city names; in a production
-// system this would use haversine distance + known city coordinates to
-// calculate whether the physical travel is actually impossible at aircraft speed.
+// ─── Suspicious Location Change (not physical impossible travel) ─────────────
+// Uses only synthetic city labels and successful-logon event ID 4624.
+// No geolocation, distance, velocity, VPN, proxy or device risk evaluation.
+// Keep the legacy function and alert type for compatibility with existing callers.
 export function detectImpossibleTravel(
   logs: LogEntry[],
   config: DetectionConfig,
   genId: () => string,
 ): Alert[] {
   const WINDOW_MS = config.impossibleTravelWindowMinutes * 60 * 1000;
-  const SUCCESS_EVENTS = new Set(['4624', '4648']);
-
   const loginsByUser = new Map<string, LogEntry[]>();
 
   for (const log of logs) {
-    if (!log.userId || !log.location) continue;
-    if (!SUCCESS_EVENTS.has(log.eventId)) continue;
+    if (!log.userId || !log.location || log.eventId !== '4624') continue;
+    if (!Number.isFinite(Date.parse(log.timestamp))) continue;
     const bucket = loginsByUser.get(log.userId) ?? [];
     bucket.push(log);
     loginsByUser.set(log.userId, bucket);
   }
 
   const alerts: Alert[] = [];
-
   for (const [userId, userLogs] of loginsByUser) {
-    // Sort descending so that the inner j-loop break (gap only grows) is valid
     const sorted = [...userLogs].sort(
-      (a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime(),
+      (a, b) => Date.parse(b.timestamp) - Date.parse(a.timestamp),
     );
-
-    const seenPairs = new Set<string>(); // prevent duplicate pair alerts
+    // De-duplicate near-identical alerts within an incident, NOT forever.
+    // An independent pair of events six hours later must still be reported.
+    const mostRecentPairAlert = new Map<string, number>();
 
     for (let i = 0; i < sorted.length; i++) {
+      const tI = Date.parse(sorted[i].timestamp);
       for (let j = i + 1; j < sorted.length; j++) {
-        const tI = new Date(sorted[i].timestamp).getTime();
-        const tJ = new Date(sorted[j].timestamp).getTime();
-
-        // Since sorted is descending, tI >= tJ, so the gap only grows with j
+        const tJ = Date.parse(sorted[j].timestamp);
         if (tI - tJ > WINDOW_MS) break;
-
         const locI = sorted[i].location!;
         const locJ = sorted[j].location!;
-
-        // Same location — no travel occurred
         if (locI === locJ) continue;
-
-        // Deduplicate: alert once per (user, locationPair) combination
-        const pairKey = [userId, locI, locJ].sort().join('|');
-        if (seenPairs.has(pairKey)) continue;
-        seenPairs.add(pairKey);
+        const pairKey = [locI, locJ].sort().join('|');
+        const previous = mostRecentPairAlert.get(pairKey);
+        if (previous !== undefined && previous - tI <= WINDOW_MS) continue;
+        mostRecentPairAlert.set(pairKey, tI);
 
         alerts.push({
           id: genId(),
-          type: 'ImpossibleTravel',
+          type: 'ImpossibleTravel', // legacy internal key; display name is explicit
           relatedLogIds: [sorted[i].id, sorted[j].id],
-          severity: 'Critical',
-          message: `Impossible travel for ${userId}: logins from "${locJ}" and "${locI}" within ${config.impossibleTravelWindowMinutes} minutes`,
+          severity: 'Medium',
+          message: `Suspicious location change for ${userId}: successful logons labeled "${locJ}" and "${locI}" within ${config.impossibleTravelWindowMinutes} minutes. Review for VPN/proxy, account sharing and geolocation error.`,
           timestamp: sorted[i].timestamp,
         });
       }
     }
   }
-
   return alerts;
 }
 

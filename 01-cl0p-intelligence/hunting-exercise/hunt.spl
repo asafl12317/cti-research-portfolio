@@ -1,0 +1,6 @@
+| inputlookup synthetic_moveit_requests.csv
+| eval candidate_path=if(match(uri_path,"(?i)^/human2?\\.aspx$"),1,0)
+| where candidate_path=1
+| stats count AS candidate_requests values(method) AS methods values(status) AS statuses values(user_agent) AS user_agents min(time) AS first_seen max(time) AS last_seen BY src_ip,host
+| where candidate_requests >= 2
+| sort -candidate_requests

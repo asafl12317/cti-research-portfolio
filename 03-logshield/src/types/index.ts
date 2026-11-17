@@ -8,7 +8,7 @@ export interface LogEntry {
   eventId: string;
   severity: Severity;
   description: string;
-  location?: string;      // For impossible travel detection
+  location?: string;      // Synthetic location label for heuristic
   userId?: string;
 }
 
@@ -35,11 +35,11 @@ export type ActivePage = 'dashboard' | 'logs' | 'alerts' | 'settings';
 // Controls the thresholds used by the noise-reduction engine.
 // Stored in App state so Settings can mutate it and trigger re-detection live.
 export interface DetectionConfig {
-  /** Number of failed logins required to trigger a Brute Force alert */
+  /** Alert when failed logins exceed this number in the trigger window */
   bruteForceThreshold: number;
   /** Rolling time window (minutes) for Brute Force detection */
   bruteForceWindowMinutes: number;
-  /** Rolling time window (minutes) for Impossible Travel detection */
+  /** Maximum interval (minutes) for location-label change detection */
   impossibleTravelWindowMinutes: number;
 }
 
