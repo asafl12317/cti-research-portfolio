@@ -23,7 +23,7 @@ export function SettingsPage({ config, onConfigChange }: SettingsPageProps) {
           <div className="space-y-5">
             <SliderRow
               label="Brute Force Threshold"
-              description="Failed logins from the same IP required to trigger an alert"
+              description="Alert triggers when failures from the same IP exceed this value within the configured window"
               value={config.bruteForceThreshold}
               min={3}
               max={20}
