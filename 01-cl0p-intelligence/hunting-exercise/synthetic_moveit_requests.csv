@@ -1,0 +1,9 @@
+time,src_ip,host,method,uri_path,status,user_agent
+2026-11-02T10:00:00Z,198.51.100.25,mft.lab.example,GET,/human2.aspx,404,DemoScanner/1.0
+2026-11-02T10:01:00Z,198.51.100.25,mft.lab.example,POST,/human2.aspx,200,DemoScanner/1.0
+2026-11-02T10:03:00Z,198.51.100.25,mft.lab.example,GET,/api/v1/status,200,DemoScanner/1.0
+2026-11-02T10:04:00Z,203.0.113.11,mft.lab.example,GET,/human.aspx,404,DemoScanner/1.0
+2026-11-02T10:10:00Z,203.0.113.44,mft.lab.example,GET,/home,200,Mozilla/5.0
+2026-11-02T10:12:00Z,203.0.113.44,mft.lab.example,GET,/login,200,Mozilla/5.0
+2026-11-02T10:15:00Z,192.0.2.72,mft.lab.example,GET,/human2.aspx,404,AuthorizedTest/1.0
+2026-11-02T10:16:00Z,192.0.2.72,mft.lab.example,GET,/human2.aspx,404,AuthorizedTest/1.0

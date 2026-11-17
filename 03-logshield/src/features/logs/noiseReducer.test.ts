@@ -153,7 +153,31 @@ describe('Brute Force sustained attack correlation', () => {
 // ─── detectImpossibleTravel ───────────────────────────────────────────────────
 
 describe('detectImpossibleTravel', () => {
-  it('fires a Critical alert when the same user logs in from two different cities within 30 minutes', () => {
+  it('does not treat Windows 4648 as a confirmed successful logon', () => {
+    const now = new Date('2026-11-02T12:00:00.000Z');
+    const logs = [
+      makeLog({ id: 'explicit-a', eventId: '4648', userId: 'u-1', location: 'Paris', timestamp: now.toISOString() }),
+      makeLog({ id: 'explicit-b', eventId: '4648', userId: 'u-1', location: 'Tokyo', timestamp: new Date(now.getTime() - 600000).toISOString() }),
+    ];
+    expect(detectImpossibleTravel(logs, cfg, makeIdGen())).toHaveLength(0);
+  });
+
+  it('creates separate location-change alerts for two independent incidents six hours apart', () => {
+    const start = Date.parse('2026-11-02T01:00:00.000Z');
+    const login = (id: string, offsetMinutes: number, location: string) => makeLog({
+      id, eventId: '4624', userId: 'u-2', location,
+      timestamp: new Date(start + offsetMinutes * 60000).toISOString(),
+    });
+    const logs = [
+      login('a1', 0, 'London'), login('a2', 10, 'Berlin'),
+      login('b1', 360, 'London'), login('b2', 370, 'Berlin'),
+    ];
+    const alerts = detectImpossibleTravel(logs, cfg, makeIdGen());
+    expect(alerts).toHaveLength(2);
+    expect(alerts.every((a) => a.severity === 'Medium')).toBe(true);
+  });
+
+  it('fires a Medium alert for two differing city labels within 30 minutes', () => {
     const now = new Date();
     const logs: LogEntry[] = [
       makeLog({
@@ -176,7 +200,7 @@ describe('detectImpossibleTravel', () => {
     const alerts = detectImpossibleTravel(logs, cfg, makeIdGen());
     expect(alerts).toHaveLength(1);
     expect(alerts[0].type).toBe('ImpossibleTravel');
-    expect(alerts[0].severity).toBe('Critical');
+    expect(alerts[0].severity).toBe('Medium');
     expect(alerts[0].relatedLogIds).toContain('it-a');
     expect(alerts[0].relatedLogIds).toContain('it-b');
   });

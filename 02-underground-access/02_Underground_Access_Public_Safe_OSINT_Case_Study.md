@@ -3,7 +3,6 @@
 **Public-safe CTI / OSINT case study | Asaf Lakunishok**  
 **Research cutoff:** 2026-11-01 | **Prepared:** 2026-11-02  
 **Classification:** Public-safe *synthetic analytical exercise*; not a documented compromise  
-**Release decision:** CONDITIONAL — editorial and provenance review required before publishing
 
 ## Executive assessment
 
@@ -90,7 +89,3 @@ An analyst receives a mock tip containing this sanitized synopsis:
 **[R4]** MITRE ATT&CK, T1219.002 Remote Access Tools: Remote Desktop Software. https://attack.mitre.org/techniques/T1219/002/
 
 Claim-level handling and verification details are recorded in `02_Underground_Access_Evidence_Log_Public_Safe.csv`. Source pages were consulted on 2026-11-02; any claim of an exhaustive search of publications through the November 1 cutoff would be unwarranted.
-
-## 10. Publication decision
-
-**CONDITIONAL PASS (content):** suitable as an openly labeled **synthetic OSINT methodology exercise** demonstrating disciplined non-attribution; **not suitable** to advertise as a verified real underground-access investigation. Final release still needs rights/secrets check, repository inspection, source-link check and editorial review. If desired, publish under the explicit filename/title “Synthetic Initial-Access Listing: OSINT Validation and Non-Attribution.”

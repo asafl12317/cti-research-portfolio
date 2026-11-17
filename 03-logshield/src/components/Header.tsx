@@ -23,12 +23,13 @@ export function Header({ activePage, alertCount, onNavigate }: HeaderProps) {
     return () => clearInterval(timer);
   }, []);
 
-  const timeStr = now.toLocaleTimeString('en-US', { hour12: false });
+  const timeStr = now.toLocaleTimeString('en-US', { hour12: false, timeZone: 'UTC' });
   const dateStr = now.toLocaleDateString('en-US', {
     weekday: 'short',
     month: 'short',
     day: '2-digit',
     year: 'numeric',
+    timeZone: 'UTC',
   });
 
   return (

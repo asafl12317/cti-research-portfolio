@@ -20,7 +20,7 @@ export function DashboardPage({ logs, alerts }: DashboardPageProps) {
       {/* Summary Cards */}
       <div className="grid grid-cols-2 xl:grid-cols-4 gap-4">
         <SummaryCard
-          title="Total Logs Ingested"
+          title="Synthetic Events Loaded"
           value={logs.length}
           icon={Database}
           accent="accent"
@@ -31,7 +31,7 @@ export function DashboardPage({ logs, alerts }: DashboardPageProps) {
           value={criticalAlerts}
           icon={ShieldAlert}
           accent="critical"
-          subtitle="Require immediate action"
+          subtitle="Review in synthetic exercise"
         />
         <SummaryCard
           title="Critical Source IPs"
@@ -41,11 +41,11 @@ export function DashboardPage({ logs, alerts }: DashboardPageProps) {
           subtitle="Unique IPs with critical-severity events"
         />
         <SummaryCard
-          title="Noise Filtered"
+          title="Informational Events"
           value={noiseFiltered}
           icon={Filter}
           accent="default"
-          subtitle="Informational events suppressed"
+          subtitle="Informational events in fixture data"
         />
       </div>
 

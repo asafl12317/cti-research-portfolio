@@ -36,7 +36,7 @@ export function Sidebar({ activePage, onNavigate, alertCount }: SidebarProps) {
       {/* Status indicator */}
       <div className="flex items-center gap-2 px-4 py-3 border-b border-border">
         <Radio size={12} className="text-low animate-pulse" />
-        <span className="text-xs text-text-muted font-mono">LIVE MONITORING</span>
+        <span className="text-xs text-text-muted font-mono">SYNTHETIC DEMO</span>
       </div>
 
       {/* Nav */}

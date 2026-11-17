@@ -72,11 +72,14 @@
 - **No access:** no direct compromise investigation, reverse engineering, victim telemetry or live IOC scanning was performed.
 - **Temporal scope:** 2026 source coverage is selective rather than exhaustive.
 
-## 7. Publication and provenance
+## 7. Methodology and provenance
 
 This is an independently written, public-source portfolio profile. No confidential assignment, nonpublic victim exhibit or claimed first-hand incident access is included. The companion `01_Cl0p_Evidence_Log_Verified_2026-11-01.csv` records claim-level disposition. Original pre-WP02 expanded 20-row evidence log was referenced in the earlier draft but **was not available for complete row-by-row reconciliation in this verification pass**; this CSV is a newly verified replacement register, not an attestation that all prior 20 rows have been revalidated.
 
-**WP-02 analytical status:** COMPLETE for the explicitly scoped public-source findings and rewritten report. **Publication gate:** CONDITIONAL / QA NEEDED — verify repository hygiene and attribution/rights before public upload. Do not represent the document as a comprehensive 2026 campaign catalog.
+
+## Hands-on companion hunt
+
+[Simulated MOVEit web request hunting exercise](hunting-exercise/README.md) includes a narrowly scoped hypothesis, sample access logs, SPL search, expected findings, and false-positive limitations. **No live hunt or victim telemetry is claimed.**
 
 ## Sources (exact public URLs)
 
