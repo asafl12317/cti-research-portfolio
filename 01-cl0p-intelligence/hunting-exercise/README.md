@@ -1,7 +1,7 @@
 # CL0P Intelligence-to-Detection — Synthetic MOVEit Web Request Hunt
 
-**Type:** Independent analytical training exercise (not real victim telemetry).  
-**Source basis:** FBI/CISA advisory AA23-158A documenting `human2.aspx` as a historical LEMURLOOT-related web artifact. See the parent CL0P report's [S1] citation.  
+**Type:** Independent analytical training exercise (not real victim telemetry).
+**Source basis:** FBI/CISA advisory AA23-158A documenting `human2.aspx` as a historical LEMURLOOT-related web artifact. See the parent CL0P report's [S1] citation.
 **Hunting question:** Which source IPs make repeated requests for historical MOVEit web-shell-like paths in a synthetic access-log sample?
 
 ## Hypothesis and validation

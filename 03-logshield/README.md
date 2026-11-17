@@ -24,14 +24,14 @@ Use the localhost URL printed by Vite. Do not expose the development server to t
 
 ## Verification and limits
 
-The project owner previously reported **14/14 Vitest tests passing**, ESLint passing, build passing, and successful manual UI smoke testing on a locally edited version on November 2, 2026. These results should be reproduced on the checked-out revision before using them as current evidence. A production-only npm advisory check previously reported zero findings, while the full audit reported 18 development-dependency findings; neither is a guarantee of security.
+Local verification reported on November 17, 2026: **16/16 Vitest tests passed**, ESLint and production build succeeded, and `npm audit --omit=dev` reported zero production dependency vulnerabilities. The owner also confirmed successful manual UI smoke testing. These are locally reported results, not independent GitHub CI checks or guarantees of security. Development dependencies were excluded from the production-only audit.
 
 No live log ingestion, SIEM backend, enterprise deployment, or incident validation is claimed. Location labels are synthetic; alerts are rule demonstrations rather than independently confirmed attacks.
 
 ## Analyst walkthrough — alert to evidence to triage
 
 1. Start the demo with `npm run dev` and open **Alert Center**.
-2. Select a brute-force alert. Note the `relatedLogIds` count and its source IP (the dashboard shows correlated results; alert-to-log clickthrough is **not** implemented).
+2. Inspect a brute-force alert. Note the `relatedLogIds` count and its source IP (the dashboard shows correlated results; alert-to-log clickthrough is **not** implemented).
 3. Open **Raw Logs** and search the source IP; inspect failed logon event IDs `4625` and `4771` and their timestamps.
 4. Record an analyst decision: the synthetic pattern warrants further triage, but repeated failures alone do not prove compromise. Consider administrative tests, expired credentials, service accounts and event duplication as potential false positives.
 5. For a location-label change, review the two `4624` events and consider VPN/proxy egress, shared accounts and inaccurate location labels. **Do not infer physical impossible travel.**
