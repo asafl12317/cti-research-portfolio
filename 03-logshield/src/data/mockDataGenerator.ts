@@ -26,7 +26,7 @@ const INTERNAL_IPS = [
 
 const EXTERNAL_IPS = [
   '185.220.101.', '91.108.4.', '45.33.32.', '198.51.100.', '203.0.113.',
-  '178.62.', '104.21.', '162.243.', '67.205.', '159.89.',
+  '178.62.0.', '104.21.0.', '162.243.0.', '67.205.0.', '159.89.0.',
 ];
 
 let idCounter = 0;
@@ -43,7 +43,24 @@ function randomItem<T>(arr: T[]): T {
 }
 
 function randomIp(prefix: string): string {
-  return `${prefix}${randomInt(1, 254)}`;
+  const octets = prefix.replace(/\.$/, '').split('.');
+
+  if (
+    octets.length < 1 ||
+    octets.length > 3 ||
+    octets.some((part) =>
+      !/^\d{1,3}$/.test(part) ||
+      Number(part) > 255
+    )
+  ) {
+    throw new Error(`Invalid IPv4 prefix: ${prefix}`);
+  }
+
+  while (octets.length < 4) {
+    octets.push(String(randomInt(1, 254)));
+  }
+
+  return octets.join('.');
 }
 
 function isoOffset(minsAgo: number): string {
@@ -169,14 +186,14 @@ export function generateMockData(): LogEntry[] {
     now - 2 * 60 * 60 * 1000,
     'user-201',
     'New York', 'Moscow',
-    randomIp('198.51.100.'), randomIp('178.62.'),
+    randomIp('198.51.100.'), randomIp('178.62.0.'),
     randomIp('10.0.0.'),
   ));
   entries.push(...buildImpossibleTravel(
     now - 7 * 60 * 60 * 1000,
     'user-333',
     'Tel Aviv', 'Beijing',
-    randomIp('91.108.4.'), randomIp('104.21.'),
+    randomIp('91.108.4.'), randomIp('104.21.0.'),
     randomIp('192.168.1.'),
   ));
 

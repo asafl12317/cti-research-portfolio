@@ -1,6 +1,6 @@
 # CL0P / Cl0p — Threat Intelligence Profile
 
-**Portfolio research | WP-02 Intelligence Verification**  
+**Independent Cyber Threat Intelligence Research**
 **Intelligence cutoff:** 2026-11-01 (inclusive)  
 **Verification performed:** 2026-11-02  
 **Scope:** publicly documented MOVEit Transfer 2023 and Oracle E-Business Suite 2025 campaigns, with a limited 2026 corroboration check  
